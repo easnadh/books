@@ -1,10 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
 import { routes } from './list.ts';
-import { Layout } from '../layout/Layout.tsx';
+import { Layout } from '@/components/layout/Layout.tsx';
 
 export const Router = () => {
-  // const isAuth = true;
-
   return (
     <Routes>
       {routes.map((route) => {

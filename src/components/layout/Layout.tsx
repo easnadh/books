@@ -10,7 +10,6 @@ export const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <Header />
-      {/*<main className='container'>{children}</main>*/}
       <Container>{children}</Container>
     </>
   );
