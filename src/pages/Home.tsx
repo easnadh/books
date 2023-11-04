@@ -1,3 +1,9 @@
+import { Search } from '@/components/Search.tsx';
+
 export const Home = () => {
-  return <>home</>;
+  return (
+    <>
+      <Search />
+    </>
+  );
 };

@@ -1,6 +1,6 @@
-import { Button } from '@mui/material';
+import { Button, Grid } from '@mui/material';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { auth } from '@/firebase.ts';
+import { auth } from '@/services/firebase.ts';
 import { HOME_ROUTE } from '@/routes/paths.ts';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,9 +17,18 @@ export const Login = () => {
 
   return (
     <>
-      <Button variant='outlined' onClick={handleGoogle}>
-        Войти с помощью Google
-      </Button>
+      <Grid
+        container
+        style={{
+          height: window.innerHeight - 64,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Button variant='outlined' onClick={handleGoogle}>
+          Войти с помощью Google
+        </Button>
+      </Grid>
     </>
   );
 };

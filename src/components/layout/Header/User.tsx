@@ -11,13 +11,13 @@ import {
 import { Link, useNavigate } from 'react-router-dom';
 import { LOGIN_ROUTE, PROFILE_ROUTE } from '@/routes/paths.ts';
 import React from 'react';
-import { auth } from '@/firebase.ts';
+import { auth } from '@/services/firebase.ts';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 const settings = ['Profile', 'Logout'];
 
 export const User = () => {
-  const [isAuth] = useAuthState(auth);
+  const [user] = useAuthState(auth);
 
   const navigate = useNavigate();
 
@@ -36,7 +36,7 @@ export const User = () => {
   return (
     <>
       <Box sx={{ flexGrow: 0 }}>
-        {isAuth ? (
+        {user ? (
           <>
             <Tooltip title='Open settings'>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
