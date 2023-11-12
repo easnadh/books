@@ -6,14 +6,14 @@ import { Preview } from './Book/Preview.tsx';
 
 export const Search = () => {
   const [search, setSearch] = useState<string>('');
-  const [booksData, setBooksData] = useState<[]>([]);
+  const [bookList, setBookList] = useState<[]>([]);
 
   const searchBook = async (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearch(value);
 
     const response = await BookService.getBooks(value);
-    setBooksData(response?.data.items);
+    setBookList(response?.data.items);
   };
 
   return (
@@ -35,7 +35,7 @@ export const Search = () => {
       />
 
       {search ? (
-        booksData ? (
+        bookList ? (
           <div
             style={{
               display: 'flex',
@@ -44,8 +44,8 @@ export const Search = () => {
               justifyContent: 'center',
             }}
           >
-            {booksData.map((book, index) => (
-              <Preview key={book + index} book={book} />
+            {bookList.map((item, index) => (
+              <Preview key={'book' + index} item={item} />
             ))}
           </div>
         ) : (

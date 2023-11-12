@@ -1,97 +1,53 @@
-import { BookType } from '@/types';
+import { BookAPIDataType } from '@/types';
+import { ImageListItem, ImageListItemBar } from '@mui/material';
+import s from '@/components/Book/Preview.module.scss';
+import { useState } from 'react';
+import { Modal } from '@/components/Book/Modal.tsx';
 
-// export const Preview = ({ book }: BookDataType) => {
-//   const name = book.volumeInfo.title;
-//   const subtitle = book.volumeInfo.subtitle || '';
-//   const authors = book.volumeInfo.authors?.join(', ');
-//   const image = book.volumeInfo.imageLinks?.smallThumbnail;
-//
-//   if (image)
-//     return (
-//       <>
-//         <div
-//           style={{
-//             gap: 5,
-//             display: 'flex',
-//             flexDirection: 'column',
-//             width: 175,
-//           }}
-//         >
-//           <img height='247' src={image} title={name} alt={'image ' + name} />
-//           <div>
-//             <p
-//               title={authors}
-//               style={{
-//                 // background: 'gray',
-//                 whiteSpace: 'nowrap',
-//                 overflow: 'hidden',
-//                 textOverflow: 'ellipsis',
-//               }}
-//             >
-//               {authors}
-//             </p>
-//             <p
-//               title={name + '\n' + subtitle}
-//               style={{
-//                 // background: 'red',
-//                 display: '-webkit-box',
-//                 WebkitLineClamp: 2,
-//                 WebkitBoxOrient: 'vertical',
-//                 overflow: 'hidden',
-//               }}
-//             >
-//               {name}
-//             </p>
-//           </div>
-//         </div>
-//       </>
-//     );
-// };
+type Props = {
+  item: BookAPIDataType;
+};
 
-export const Preview = ({ book }: BookType) => {
-  const name = book.volumeInfo.title;
-  const subtitle = book.volumeInfo.subtitle || '';
-  const authors = book.volumeInfo.authors?.join(', ');
-  const image = book.volumeInfo.imageLinks?.smallThumbnail;
+export const Preview = ({ item }: Props) => {
+  const book = {
+    id: item.id,
+    title: item.volumeInfo.title,
+    subtitle: item.volumeInfo.subtitle || '',
+    authors: item.volumeInfo.authors?.join(', '),
+    description: item.volumeInfo.description,
+    image: item.volumeInfo.imageLinks?.smallThumbnail,
+    pageCount: item.volumeInfo.pageCount,
+    publishedDate: item.volumeInfo.publishedDate,
+    publisher: item.volumeInfo.publisher,
+  };
 
-  if (image)
+  const [open, setOpen] = useState<boolean>(false);
+
+  if (book.image)
     return (
       <>
-        <div
+        <ImageListItem
+          className={s.hover}
           style={{
-            gap: 5,
-            display: 'flex',
-            flexDirection: 'column',
             width: 175,
           }}
+          onClick={() => setOpen(true)}
         >
-          <img height='247' src={image} title={name} alt={'image ' + name} />
-          <div>
-            <p
-              title={authors}
-              style={{
-                // background: 'gray',
-                whiteSpace: 'nowrap',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-              }}
-            >
-              {authors}
-            </p>
-            <p
-              title={name + '\n' + subtitle}
-              style={{
-                // background: 'red',
-                display: '-webkit-box',
-                WebkitLineClamp: 2,
-                WebkitBoxOrient: 'vertical',
-                overflow: 'hidden',
-              }}
-            >
-              {name}
-            </p>
-          </div>
-        </div>
+          <img
+            style={{ borderRadius: 10 }}
+            height='247'
+            src={book.image}
+            title={book.title + '\n' + book.subtitle}
+            alt={'image ' + book.title}
+            loading='eager'
+          />
+          <ImageListItemBar
+            style={{ borderRadius: '0 0 10px 10px' }}
+            title={book.title}
+            subtitle={book.authors}
+          />
+        </ImageListItem>
+        <Modal open={open} book={book} onClose={() => setOpen(false)} />
       </>
     );
 };

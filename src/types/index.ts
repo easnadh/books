@@ -1,4 +1,4 @@
-type BookDataType = {
+export type BookAPIDataType = {
   id: string;
   volumeInfo: {
     title: string;
@@ -16,5 +16,13 @@ type BookDataType = {
 };
 
 export type BookType = {
-  book: BookDataType;
+  id: string;
+  title: string;
+  subtitle?: string;
+  authors?: string;
+  description: string;
+  image?: string;
+  pageCount: number;
+  publishedDate: string;
+  publisher: string;
 };
