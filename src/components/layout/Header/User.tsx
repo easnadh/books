@@ -14,7 +14,7 @@ import React from 'react';
 import { auth } from '@/services/firebase.ts';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
-const settings = ['Profile', 'Logout'];
+const userMenu = ['Profile', 'Logout'];
 
 export const User = () => {
   const [user] = useAuthState(auth);
@@ -38,9 +38,9 @@ export const User = () => {
       <Box sx={{ flexGrow: 0 }}>
         {user ? (
           <>
-            <Tooltip title='Open settings'>
+            <Tooltip title='Open menu'>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt='Remy Sharp' src='/static/images/avatar/2.jpg' />
+                <Avatar src={`${user?.photoURL}`} alt={`${user} avatar`} />
               </IconButton>
             </Tooltip>
             <Menu
@@ -59,20 +59,20 @@ export const User = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
+              {userMenu.map((menuItem) => (
                 <MenuItem
-                  key={setting}
+                  key={menuItem}
                   onClick={() => {
                     handleCloseUserMenu();
-                    if (setting === 'Profile') {
-                      navigate(`${PROFILE_ROUTE}`);
+                    if (menuItem === 'Profile') {
+                      navigate(PROFILE_ROUTE);
                     } else {
-                      navigate(`${LOGIN_ROUTE}`);
+                      navigate(LOGIN_ROUTE);
                       auth.signOut();
                     }
                   }}
                 >
-                  <Typography textAlign='center'>{setting}</Typography>
+                  <Typography textAlign='center'>{menuItem}</Typography>
                 </MenuItem>
               ))}
             </Menu>

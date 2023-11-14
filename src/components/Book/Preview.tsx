@@ -16,6 +16,7 @@ export const Preview = ({ item }: Props) => {
     authors: item.volumeInfo.authors?.join(', '),
     description: item.volumeInfo.description,
     image: item.volumeInfo.imageLinks?.smallThumbnail,
+    language: item.volumeInfo.language,
     pageCount: item.volumeInfo.pageCount,
     publishedDate: item.volumeInfo.publishedDate,
     publisher: item.volumeInfo.publisher,
@@ -30,6 +31,7 @@ export const Preview = ({ item }: Props) => {
           className={s.hover}
           style={{
             width: 175,
+            cursor: 'pointer',
           }}
           onClick={() => setOpen(true)}
         >

@@ -9,6 +9,7 @@ export type BookAPIDataType = {
       smallThumbnail?: string;
       thumbnail?: string;
     };
+    language: string;
     pageCount: number;
     publishedDate: string;
     publisher: string;
@@ -22,6 +23,7 @@ export type BookType = {
   authors?: string;
   description: string;
   image?: string;
+  language: string;
   pageCount: number;
   publishedDate: string;
   publisher: string;
