@@ -1,19 +1,16 @@
 import { InputAdornment, TextField } from '@mui/material';
 import { Search as SearchIcon } from '@mui/icons-material';
+import { Preview } from '@/components/Book/Preview.tsx';
+import { useSearchBooks } from '@/hooks/useSearchBooks.ts';
 import { ChangeEvent, useState } from 'react';
-import { BookService } from '@/services/BookService.ts';
-import { Preview } from './Book/Preview.tsx';
+import { Loader } from '@/components/Loader/Loader.tsx';
 
 export const Search = () => {
-  const [search, setSearch] = useState<string>('');
-  const [bookList, setBookList] = useState<[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const { bookList, isLoading } = useSearchBooks(searchQuery);
 
-  const searchBook = async (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setSearch(value);
-
-    const response = await BookService.getBooks(value);
-    setBookList(response?.data.items);
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
   };
 
   return (
@@ -30,12 +27,14 @@ export const Search = () => {
             </InputAdornment>
           ),
         }}
-        value={search}
-        onChange={searchBook}
+        value={searchQuery}
+        onChange={handleChange}
       />
 
-      {search ? (
-        bookList ? (
+      {searchQuery ? (
+        isLoading ? (
+          <Loader />
+        ) : bookList ? (
           <div
             style={{
               display: 'flex',
