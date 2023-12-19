@@ -11,13 +11,12 @@ import {
 import { Link, useNavigate } from 'react-router-dom';
 import { LOGIN_ROUTE, PROFILE_ROUTE } from '@/routes/paths.ts';
 import React from 'react';
-import { auth } from '@/services/firebase.ts';
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { useAuth } from '@/hooks/useAuth.ts';
 
 const userMenu = ['Profile', 'Logout'];
 
 export const User = () => {
-  const [user] = useAuthState(auth);
+  const { user, logOut } = useAuth();
 
   const navigate = useNavigate();
 
@@ -68,7 +67,7 @@ export const User = () => {
                       navigate(PROFILE_ROUTE);
                     } else {
                       navigate(LOGIN_ROUTE);
-                      auth.signOut();
+                      logOut();
                     }
                   }}
                 >

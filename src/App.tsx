@@ -1,11 +1,10 @@
 import { BrowserRouter } from 'react-router-dom';
 import { Router } from './routes/Router.tsx';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '@/services/firebase.ts';
-import { Loader } from '@/components/Loader/Loader.tsx';
+import { Loader } from '@/styles/Loader/Loader.tsx';
+import { useAuth } from '@/hooks/useAuth.ts';
 
 function App() {
-  const [, loading] = useAuthState(auth);
+  const { loading } = useAuth();
   if (loading) return <Loader />;
 
   return (

@@ -6,8 +6,8 @@ import {
   DialogTitle,
 } from '@mui/material';
 import { BookType } from '@/types';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '@/services/firebase.ts';
+import { BookmarksService } from '@/services/BookmarksService.ts';
+import { useAuth } from '@/hooks/useAuth.ts';
 
 type Props = {
   open: boolean;
@@ -16,7 +16,7 @@ type Props = {
 };
 
 export const Modal = ({ open, book, onClose }: Props) => {
-  const [user] = useAuthState(auth);
+  const { user } = useAuth();
 
   return (
     <>
@@ -32,7 +32,9 @@ export const Modal = ({ open, book, onClose }: Props) => {
           <Button
             variant='outlined'
             onClick={() => {
-              user ? alert('added') : alert('login to add');
+              user
+                ? BookmarksService.create(user, book)
+                : alert('login to add');
             }}
           >
             add to list

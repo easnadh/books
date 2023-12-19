@@ -1,24 +1,15 @@
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '@/services/firebase.ts';
-import { Avatar } from '@mui/material';
 import { LOGIN_ROUTE } from '@/routes/paths.ts';
 import { Navigate } from 'react-router-dom';
+import { Information } from '@/components/User/Information.tsx';
+import { Bookmarks } from '@/components/User/Bookmarks.tsx';
+import { useAuth } from '@/hooks/useAuth.ts';
 
 export const Profile = () => {
-  const [user] = useAuthState(auth);
+  const { user } = useAuth();
   return user ? (
     <>
-      <div>
-        <div>@{user?.uid}</div>
-        <div>{user?.displayName}</div>
-        <Avatar
-          style={{ height: 100, width: 100 }}
-          variant='rounded'
-          src={`${user?.photoURL}`}
-          alt={`${user} profile picture`}
-        />
-      </div>
-      <div>My books: </div>
+      <Information user={user} />
+      <Bookmarks uid={user.uid} />
     </>
   ) : (
     <Navigate to={LOGIN_ROUTE} />
