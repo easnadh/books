@@ -3,7 +3,7 @@ import { Search as SearchIcon } from '@mui/icons-material';
 import { Preview } from '@/components/Book/Preview.tsx';
 import { useSearchBooks } from '@/hooks/useSearchBooks.ts';
 import { ChangeEvent, useState } from 'react';
-import { Loader } from '@/components/Loader/Loader.tsx';
+import { Loader } from '@/styles/Loader/Loader.tsx';
 
 export const Search = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
