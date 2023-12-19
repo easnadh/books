@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { BookService } from '@/services/BookService.ts';
+import { BookAPIService } from '@/services/BookAPIService.ts';
 
 export const useSearchBooks = (searchQuery: string) => {
   const [bookList, setBookList] = useState<[]>([]);
@@ -9,7 +9,7 @@ export const useSearchBooks = (searchQuery: string) => {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const data = await BookService.getBooks(searchQuery);
+      const data = await BookAPIService.getBooks(searchQuery);
       setBookList(data);
       setLoading(false);
     } catch (e) {

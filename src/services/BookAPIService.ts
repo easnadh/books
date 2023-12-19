@@ -4,7 +4,7 @@ const API_KEY = import.meta.env.VITE_API_KEY;
 const URL = `https://www.googleapis.com/books/v1/volumes?`;
 const PAGINATION = 40;
 
-export class BookService {
+export class BookAPIService {
   static async getBooks(value: string) {
     try {
       const response = await axios.get(
