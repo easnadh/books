@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
 import { BookmarksService } from '@/services/BookmarksService.ts';
+import { BookmarkType } from '@/types';
 
 type Props = {
   uid: string;
 };
 
 export const Bookmarks = ({ uid }: Props) => {
-  const [bookmarks, setBookmarks] = useState();
+  const [bookmarks, setBookmarks] = useState<BookmarkType[]>([]);
 
   const getBookmarks = async () => {
-    await BookmarksService.get(uid);
+    const bookmarks = await BookmarksService.get(uid);
     setBookmarks(bookmarks);
   };
 
@@ -21,7 +22,11 @@ export const Bookmarks = ({ uid }: Props) => {
     <>
       <div>
         My books:
-        <div></div>
+        {bookmarks.map((item, index) => (
+          <div key={index}>
+            {item.id}: {item.status}
+          </div>
+        ))}
       </div>
     </>
   );

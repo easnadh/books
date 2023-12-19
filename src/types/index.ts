@@ -28,3 +28,8 @@ export type BookType = {
   publishedDate: string;
   publisher: string;
 };
+
+export type BookmarkType = {
+  id: string;
+  status: string;
+};
